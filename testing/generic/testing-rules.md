@@ -1,0 +1,33 @@
+---
+paths:
+  - "**/*.test.*"
+  - "**/*.spec.*"
+  - "**/__tests__/**"
+  - "**/tests/**"
+  - "**/test/**"
+---
+
+- Follow the testing pyramid: many unit tests, fewer integration tests, few E2E tests
+- Use dependency injection for internal collaborators to minimize mocking; reserve framework mocks (jest.mock/vi.mock/cy.intercept/page.route) for true I/O boundaries (network, DB, filesystem, third-party APIs)
+- Test through the public API of modules, testing behavior not implementation; avoid testing private implementation details
+- Use realistic test data with factories/fixtures; avoid magic strings, numbers, and duplicated setup code
+- Follow the AAA pattern: Arrange, Act, Assert — one assertion per concept
+- Name tests as complete sentences describing behavior: "should return 404 when user not found"
+- Keep unit tests fast (<10ms) by mocking I/O; use integration tests for real DB/service interaction
+- Never put business logic in tests; keep them simple, obvious, and free of conditionals/loops
+- Write E2E tests for critical user journeys (signup, checkout, auth flows)
+- Use Playwright for E2E tests; run them against a staging environment in CI
+- Measure mutation score with Stryker to assess test quality beyond coverage
+- Run tests in CI on every PR; measure and track coverage trends
+- Make flaky tests a P1 bug; never commit tests that pass intermittently
+- Generate both success and failure test cases for every function
+- Generate test data with faker.js or Faker for realistic but fake values
+- Include at least one edge case test (empty input, null, zero, max values)
+- Use testcontainers for integration tests with real database and service dependencies
+- Apply golden file testing for complex output (JSON, HTML, generated code)
+- Use fuzzing (go-fuzz, cargo fuzz, atheris) for parsers and serializers
+- Apply structured test logging to correlate test failures with system events
+- Use test impact analysis to run only tests affected by code changes
+- Apply approval testing for complex business logic with human-verified outputs
+- Generate test data at scale with custom generators for performance tests
+- Use chaos testing to validate timeout and circuit breaker configurations
